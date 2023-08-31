@@ -11,8 +11,8 @@ app = FastAPI()
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
 # Define endpoint for face detection
-@app.post("/detect_face/")
-async def detect_face(file: UploadFile):
+@app.post("/detect_face/", response_description="Face detected")
+async def detect_face(file: UploadFile = File(..., description="Image file")):
     # Read the uploaded image
     image = Image.open(io.BytesIO(await file.read()))
 
